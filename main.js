@@ -13,7 +13,7 @@ function clearInspector() {
 
 // Inspector
 
-function handleInspector() {
+async function handleInspector() {
     const params = new URLSearchParams(window.location.search)
     const bug = params.get('inspect')
     if (!bug) {
@@ -25,9 +25,13 @@ function handleInspector() {
         return window.location.replace(window.location.origin)
     }
 
+    const response = await fetch('./data.json').then(res => res.json())
+    const data = response[bug]
+
     inspectorEl.innerHTML = `
     <h2>${getExclamation()}! You caught a ${bug}!</h2>
-    <p>{{ Some unique description of the bug }}</p>
+    <p>${data.description}.</p>
+    <p><b>Fun fact</b>: ${data.fact}!</p>
     `
 }
 

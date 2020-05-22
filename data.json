@@ -1,0 +1,26 @@
+{
+    "ant": {
+        "description": "Ants are small insects that live in large groups called a colony",
+        "fact": "Some ants are able to carry twenty times their own weight"
+    },
+    "bee": {
+        "description": "Bees are flying insects that collect pollen from flowers",
+        "fact": "Bees have five eyes"
+    },
+    "butterfly": {
+        "description": "Butterflies are a flying insect that lives off of flowering plants",
+        "fact": "Butterflies can taste things with their feet"
+    },
+    "caterpillar": {
+        "description": "Caterpillars are insects with long bodies and multiple legs",
+        "fact": "Silk-producing silkworms are actually caterpillars"
+    },
+    "cricket": {
+        "description": "Crickets are insects with flattened bodies, long antennae, and powerful back legs",
+        "fact": "Crickets are know for their distinctive \"chirping\" sound"
+    },
+    "ladybug": {
+        "description": "Ladybugs are small round beetles with red shells and black spots",
+        "fact": "Lady bugs are also known as ladybirds or lady beetles"
+    }
+}
