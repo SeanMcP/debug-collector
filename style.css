@@ -1,0 +1,11 @@
+#grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    min-height: 50vh;
+}
+
+a[href^="?inspect="] {
+    display: grid;
+    place-items: center;
+}

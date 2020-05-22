@@ -6,6 +6,7 @@ const inspectorEl = document.getElementById('inspector')
 const journalEl = document.getElementById('journal')
 const summaryEl = journalEl.querySelector('summary')
 const tableEl = document.getElementById('table')
+const gridEl = document.getElementById('grid')
 
 function clearInspector() {
     if (inspectorEl.innerHTML) inspectorEl.innerHTML = ''
@@ -83,3 +84,40 @@ function handleJournal() {
 }
 
 window.addEventListener('load', handleJournal)
+
+// Grid
+
+function createBugAnchor(bug, emoji) {
+    const a = document.createElement('a')
+    a.setAttribute('aria-label', bug)
+    a.href = '?inspect=' + bug
+    a.textContent = emoji
+    return a
+}
+
+function renderBugsInGrid() {
+    const gridMap = {}
+
+    for(let [bug, emoji] of Object.entries(BUGS)) {
+        let x, y
+        let unique = false
+        
+        while (!unique) {
+            x = Math.floor(Math.random() * 5) + 1
+            y = Math.floor(Math.random() * 5) + 1
+            const coordinates = `${x},${y}`
+            if (!gridMap[coordinates]) {
+                unique = true
+                gridMap[coordinates] = bug
+            }
+        }
+
+        const bugAnchor = createBugAnchor(bug, emoji)
+        bugAnchor.style.gridColumnStart = x
+        bugAnchor.style.gridRowStart = y
+
+        gridEl.appendChild(bugAnchor)
+    }
+}
+
+window.addEventListener('load', renderBugsInGrid)
