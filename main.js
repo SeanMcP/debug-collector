@@ -2,14 +2,13 @@ console.info('Made by SeanMcP – https://seanmcp.com')
 
 import { getExclamation, STORAGE_KEYS, BUGS } from './utils.js'
 
-const inspectorEl = document.getElementById('inspector')
 const journalEl = document.getElementById('journal')
 const summaryEl = journalEl.querySelector('summary')
 const tableEl = document.getElementById('table')
 const gridEl = document.getElementById('grid')
 
 function clearInspector() {
-    if (inspectorEl.innerHTML) inspectorEl.innerHTML = ''
+    if (typeof inspector !== 'undefined') inspector.remove()
 }
 
 // Inspector
@@ -26,6 +25,13 @@ async function handleInspector() {
         return window.location.replace(window.location.origin)
     }
 
+    clearInspector()
+
+    const inspectorEl = document.createElement('div')
+    inspectorEl.id = "inspector"
+    inspectorEl.tabIndex = 0
+    inspectorEl.addEventListener('click', clearInspector)
+
     const response = await fetch('./data.json').then(res => res.json())
     const data = response[bug]
 
@@ -34,6 +40,8 @@ async function handleInspector() {
     <p>${data.description}.</p>
     <p><b>Fun fact</b>: ${data.fact}!</p>
     `
+
+    document.body.appendChild(inspectorEl)
 }
 
 window.addEventListener('load', handleInspector)
@@ -98,10 +106,10 @@ function createBugAnchor(bug, emoji) {
 function renderBugsInGrid() {
     const gridMap = {}
 
-    for(let [bug, emoji] of Object.entries(BUGS)) {
+    for (let [bug, emoji] of Object.entries(BUGS)) {
         let x, y
         let unique = false
-        
+
         while (!unique) {
             x = Math.floor(Math.random() * 5) + 1
             y = Math.floor(Math.random() * 5) + 1
