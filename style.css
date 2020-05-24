@@ -30,16 +30,17 @@ main h1 {
   grid-template-rows: repeat(5, 1fr);
 }
 
-a[href^="?inspect="] {
+#grid button {
+  border: none;
+  background: none;
   display: grid;
   place-items: center;
   font-size: 4rem;
-  text-decoration: none;
   opacity: 0;
 }
 
-a[href^="?inspect="]:focus, 
-a[href^="?inspect="]:hover {
+#grid button:focus, 
+#grid button:hover {
     opacity: 1;
 } 
 

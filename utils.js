@@ -12,10 +12,7 @@ export function getExclamation() {
     return EXCLAMATIONS[Math.floor(Math.random() * EXCLAMATIONS.length)]
 }
 
-export const STORAGE_KEYS = {
-    journal: 'journal',
-    isOpen: 'isOpen'
-}
+export const STORAGE_KEY = 'journal'
 
 export const BUGS = {
     ant: '🐜',
