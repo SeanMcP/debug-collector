@@ -1,10 +1,10 @@
 body {
-    display: flex;
-    flex-direction: column;
-    font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  display: flex;
+  flex-direction: column;
+  font-family: Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 1.5rem;
-    min-height: 100vh;
+  font-size: 1.5rem;
+  min-height: 100vh;
 }
 
 * {
@@ -12,13 +12,13 @@ body {
 }
 
 main {
-    background: hsl(115, 30%, 55%);
-    flex: 1;
-    padding: 2rem;
+  background: hsl(115, 30%, 55%);
+  flex: 1;
+  padding: 2rem;
 }
 
 main h1 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 /* Grid */
@@ -33,58 +33,77 @@ main h1 {
 #grid button {
   border: none;
   background: none;
+  cursor: pointer;
   display: grid;
   place-items: center;
   font-size: 4rem;
   opacity: 0;
 }
 
-#grid button:focus, 
-#grid button:hover {
-    opacity: 1;
-} 
+#grid button[disabled] {
+  background: gray;
+  opacity: 1;
+}
 
 /* Inspector */
 
 #inspector {
-    background: white;
-    box-shadow: 0 0 1rem hsla(0, 0%, 0%, 20%);
-    left: 0;
-    padding: 2rem;
-    position: fixed;
-    right: 0;
-    top: 0;
+  background: white;
+  box-shadow: 0 0 1rem hsla(0, 0%, 0%, 20%);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: max-content auto;
+  grid-template-rows: repeat(3, min-content);
+  left: 0;
+  padding: 2rem;
+  position: fixed;
+  right: 0;
+  top: 0;
 }
 
-#inspector > p:last-child {
-  margin-bottom: 0;
+#inspector [role="img"] {
+  --size: 5rem;
+  align-self: start;
+  border-radius: var(--size);
+  border: 2px solid hsl(0, 0%, 80%);
+  display: grid;
+  font-size: 3rem;
+  grid-row-start: 1;
+  grid-row-end: span 3;
+  height: var(--size);
+  place-items: center;
+  width: var(--size);
+}
+
+#inspector > * {
+  margin: 0;
 }
 
 #inspector::after {
-    --size: 48px;
-    display: grid;
-    content: "✕";
-    color: hsl(0, 0%, 75%);
-    font-size: 2rem;
-    height: var(--size);
-    place-items: center;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: var(--size);
+  --size: 48px;
+  display: grid;
+  content: "✕";
+  color: hsl(0, 0%, 75%);
+  font-size: 2rem;
+  height: var(--size);
+  place-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--size);
 }
 
 /* Journal */
 
 #journal {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
 }
 
 #journal summary {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 #journal h2 {
@@ -93,8 +112,8 @@ main h1 {
 }
 
 #journal table {
-    bottom: 100%;
-    padding: 1rem;
-    position: absolute;
-    width: 100%;
+  bottom: 100%;
+  padding: 1rem;
+  position: absolute;
+  width: 100%;
 }

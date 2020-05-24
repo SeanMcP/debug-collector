@@ -86,6 +86,10 @@ function createBugButton(bug, emoji) {
     return button
 }
 
+function getCoordinates(x, y) {
+    return `${x},${y}`
+}
+
 function renderBugsInGrid() {
     if (gridEl.innerHTML) gridEl.innerHTML = ''
     const gridMap = {}
@@ -97,7 +101,7 @@ function renderBugsInGrid() {
         while (!unique) {
             x = Math.floor(Math.random() * 5) + 1
             y = Math.floor(Math.random() * 5) + 1
-            const coordinates = `${x},${y}`
+            const coordinates = getCoordinates(x, y)
             if (!gridMap[coordinates]) {
                 unique = true
                 gridMap[coordinates] = bug
@@ -109,6 +113,22 @@ function renderBugsInGrid() {
         bugButton.style.gridRowStart = y
 
         gridEl.appendChild(bugButton)
+    }
+
+    for (let x = 1; x <= 5; x++) {
+        for (let y = 1; y <= 5; y++) {
+            const coordinates = getCoordinates(x, y)
+            if (!gridMap[coordinates]) {
+                const button = document.createElement('button')
+                button.dataset.type = "dummy"
+                button.style.gridColumnStart = x
+                button.style.gridRowStart = y
+                button.addEventListener('click', () => {
+                    button.disabled = true
+                })
+                gridEl.appendChild(button)
+            }
+        }
     }
 }
 
