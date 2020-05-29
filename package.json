@@ -1,0 +1,23 @@
+{
+  "name": "@seanmcp/debug-collector",
+  "version": "1.0.0",
+  "description": "Learn the debugger by example",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeanMcP/debug-collector.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeanMcP/debug-collector/issues"
+  },
+  "homepage": "https://github.com/SeanMcP/debug-collector#readme",
+  "dependencies": {
+    "@seanmcp/demo": "^2.1.0"
+  }
+}
