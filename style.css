@@ -15,6 +15,10 @@ body {
   display: none !important;
 }
 
+button {
+  font-family: inherit !important;
+}
+
 main {
   background: hsl(115, 42%, 44%);
   color: white;
@@ -114,8 +118,33 @@ footer {
   padding: 1rem;
 }
 
+#journal summary {
+  position: relative;
+}
+
+#journal summary::marker {
+  content: '📘';
+}
+
+#journal[open] summary::marker {
+  content: '📖';
+}
+
 #journal h2 {
+  display: inline-block;
   margin: 0;
+  margin-left: 0.5rem;
+}
+
+#journal #bug-count {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#journal[open] #bug-count {
+  display: none;
 }
 
 #journal table {
@@ -151,4 +180,24 @@ footer {
 
 #journal td.count {
   text-align: center;
+}
+
+#journal .reset-container {
+  text-align: right;
+}
+
+#journal #reset-journal {
+  background: hsl(0, 0%, 58%);
+  border: 0;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding: 0.25rem 0.5rem;
+}
+
+#journal #reset-journal:focus,
+#journal #reset-journal:hover {
+  background: dodgerblue;
+  box-shadow: 0 0 0 4px gold;
 }

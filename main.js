@@ -2,10 +2,13 @@ console.info('Made by SeanMcP – https://seanmcp.com')
 
 import { anItem, getExclamation, BUGS } from './utils.js'
 
-const tableEl = document.getElementById('table')
+const bugCountEl = document.getElementById('bug-count')
 const inspectorEl = document.getElementById('inspector')
+const resetJournalEl = document.getElementById('reset-journal')
 const searchEl = document.getElementById('search')
-const bugJournal = {}
+const tableEl = document.getElementById('table')
+
+let bugJournal = {}
 
 function clearInspector() {
     inspectorEl.innerHTML = ''
@@ -61,9 +64,26 @@ const headRow = `
 `
 
 function renderJournal() {
-    const rows = Object.entries(bugJournal).map(([bug, count]) => `<tr data-bug="${bug}"><td class="image">${BUGS[bug]}</td><td class="name">${bug}</td><td class="count">${count}</td></tr>`)
+    const journalEntries = Object.entries(bugJournal)
+    
+    if (journalEntries.length > 0) {
+        const rows = journalEntries.map(([bug, count]) => `<tr data-bug="${bug}"><td class="image">${BUGS[bug]}</td><td class="name">${bug}</td><td class="count">${count}</td></tr>`)
+        bugCountEl.textContent = `${journalEntries.length}`
 
-    if (rows.length > 0) tableEl.innerHTML = `${headRow}<tbody>${rows.join('\n')}</tbody>`
+        if (resetJournalEl.hidden) resetJournalEl.removeAttribute('hidden')
+        tableEl.innerHTML = `${headRow}<tbody>${rows.join('\n')}</tbody>`
+    } else {
+        resetJournalEl.hidden = true
+        bugCountEl.textContent = ''
+        tableEl.innerHTML = ''
+    }
 }
 
 window.addEventListener('load', renderJournal)
+
+function resetJournal() {
+    bugJournal = {}
+    renderJournal()
+}
+
+resetJournalEl.addEventListener('click', resetJournal)
