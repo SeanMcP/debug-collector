@@ -1,3 +1,3 @@
-# Debug Catcher
+# Debug Collector
 
 > Learn the debugger by example
