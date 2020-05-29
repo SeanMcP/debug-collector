@@ -12,8 +12,6 @@ export function getExclamation() {
     return EXCLAMATIONS[Math.floor(Math.random() * EXCLAMATIONS.length)]
 }
 
-export const STORAGE_KEY = 'journal'
-
 export const BUGS = {
     ant: '🐜',
     bee: '🐝',
@@ -21,4 +19,10 @@ export const BUGS = {
     caterpillar: '🐛',
     cricket: '🦗',
     ladybug: '🐞'
+}
+
+const VOWELS = ['a', 'e', 'i', 'o', 'u']
+
+export function anItem(item) {
+    return `a${VOWELS.includes(item[0]) ? 'n' : ''} ${item}`
 }

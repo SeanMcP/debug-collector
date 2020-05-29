@@ -1,47 +1,50 @@
 console.info('Made by SeanMcP – https://seanmcp.com')
 
-import { getExclamation, STORAGE_KEY, BUGS } from './utils.js'
+import { anItem, getExclamation, BUGS } from './utils.js'
 
 const tableEl = document.getElementById('table')
-const gridEl = document.getElementById('grid')
+const inspectorEl = document.getElementById('inspector')
+const searchEl = document.getElementById('search')
+const bugJournal = {}
 
 function clearInspector() {
-    if (typeof inspector !== 'undefined') inspector.remove()
+    inspectorEl.innerHTML = ''
 }
 
 // Inspector
 
-async function handleInspector(bug) {
+async function handleSearch() {
     clearInspector()
 
-    const inspectorEl = document.createElement('div')
-    inspectorEl.id = "inspector"
-    inspectorEl.tabIndex = 0
-    inspectorEl.addEventListener('click', clearInspector)
+    const bugs = Object.keys(BUGS)
+    const bug = bugs[Math.floor(Math.random() * bugs.length)]
 
+    recordBugInJournal(bug)
     const response = await fetch('./data.json').then(res => res.json())
     const data = response[bug]
 
     inspectorEl.innerHTML = `
-    <span role="img">${BUGS[bug]}</span>
-    <h2>${getExclamation()}! You caught a ${bug}!</h2>
-    <p>${data.description}.</p>
-    <p><b>Fun fact</b>: ${data.fact}!</p>
+    <div>
+        <span role="img">${BUGS[bug]}</span>
+        <h2>${getExclamation()}! You caught ${anItem(bug)}!</h2>
+        <p>${data.description}.</p>
+        <small><b>Fun fact</b>: ${data.fact}!</small>
+    </div>
     `
 
-    document.body.appendChild(inspectorEl)
+    inspectorEl.removeAttribute('hidden')
 }
+
+searchEl.addEventListener('click', handleSearch)
+inspectorEl.addEventListener('click', () => {
+    inspectorEl.hidden = true
+    clearInspector()
+})
 
 // Record
 
 function recordBugInJournal(bug) {
-    const rawJournal = localStorage.getItem(STORAGE_KEY)
-    let journal = {}
-    if (rawJournal) {
-        journal = JSON.parse(rawJournal)
-    }
-    journal[bug] = (journal[bug] || 0) + 1
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(journal))
+    bugJournal[bug] = (bugJournal[bug] || 0) + 1
     renderJournal()
 }
 
@@ -50,86 +53,17 @@ function recordBugInJournal(bug) {
 const headRow = `
 <thead>
     <tr>
-        <th>Bug</th>
+        <th>Image</th>
+        <th>Name</th>
         <th>Count</th>
     </tr>
 </thead
 `
 
 function renderJournal() {
-    const rawJournal = localStorage.getItem(STORAGE_KEY)
-    if (!rawJournal) return
-    const journal = JSON.parse(localStorage.getItem(STORAGE_KEY))
-    const rows = Object.entries(journal).map(([bug, count]) => `<tr><td>${bug}</td><td>${count}</td></tr>`)
+    const rows = Object.entries(bugJournal).map(([bug, count]) => `<tr data-bug="${bug}"><td class="image">${BUGS[bug]}</td><td class="name">${bug}</td><td class="count">${count}</td></tr>`)
 
-    tableEl.innerHTML = `${headRow}<tbody>${rows.join('\n')}</tbody>`
+    if (rows.length > 0) tableEl.innerHTML = `${headRow}<tbody>${rows.join('\n')}</tbody>`
 }
 
 window.addEventListener('load', renderJournal)
-
-// Grid
-
-function handleBugClick(bug) {
-    recordBugInJournal(bug)
-    handleInspector(bug)
-    renderBugsInGrid()
-}
-
-function createBugButton(bug, emoji) {
-    const button = document.createElement('button')
-    button.setAttribute('aria-label', bug)
-    button.dataset.type = 'bug'
-    button.textContent = emoji
-    button.addEventListener('click', () =>
-        handleBugClick(bug)
-    )
-    return button
-}
-
-function getCoordinates(x, y) {
-    return `${x},${y}`
-}
-
-function renderBugsInGrid() {
-    if (gridEl.innerHTML) gridEl.innerHTML = ''
-    const gridMap = {}
-
-    for (let [bug, emoji] of Object.entries(BUGS)) {
-        let x, y
-        let unique = false
-
-        while (!unique) {
-            x = Math.floor(Math.random() * 5) + 1
-            y = Math.floor(Math.random() * 5) + 1
-            const coordinates = getCoordinates(x, y)
-            if (!gridMap[coordinates]) {
-                unique = true
-                gridMap[coordinates] = bug
-            }
-        }
-
-        const bugButton = createBugButton(bug, emoji)
-        bugButton.style.gridColumnStart = x
-        bugButton.style.gridRowStart = y
-
-        gridEl.appendChild(bugButton)
-    }
-
-    for (let x = 1; x <= 5; x++) {
-        for (let y = 1; y <= 5; y++) {
-            const coordinates = getCoordinates(x, y)
-            if (!gridMap[coordinates]) {
-                const button = document.createElement('button')
-                button.dataset.type = "dummy"
-                button.style.gridColumnStart = x
-                button.style.gridRowStart = y
-                button.addEventListener('click', () => {
-                    button.disabled = true
-                })
-                gridEl.appendChild(button)
-            }
-        }
-    }
-}
-
-window.addEventListener('load', renderBugsInGrid)

@@ -11,6 +11,10 @@ body {
   margin-top: 0;
 }
 
+*[hidden] {
+  display: none !important;
+}
+
 main {
   background: hsl(115, 30%, 55%);
   flex: 1;
@@ -21,65 +25,53 @@ main h1 {
   margin-top: 0;
 }
 
-/* Grid */
-
-#grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+footer {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
 }
 
-#grid button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
+#search {
+  font-family: inherit;
   font-size: 4rem;
-  opacity: 0;
-}
-
-#grid button[disabled] {
-  background: gray;
-  opacity: 1;
+  font-weight: bold;
 }
 
 /* Inspector */
 
 #inspector {
+  background: hsla(0, 0%, 0%, 20%);
+  display: grid;
+  place-items: center;
+  position: fixed;
+  inset: 0;
+}
+
+#inspector div {
   background: white;
-  box-shadow: 0 0 1rem hsla(0, 0%, 0%, 20%);
+  border-bottom: 1px solid gray;;
+  box-shadow: 0 0 1rem hsla(0, 0%, 0%, 40%);
   display: grid;
   gap: 1rem;
-  grid-template-columns: max-content auto;
-  grid-template-rows: repeat(3, min-content);
-  left: 0;
+  margin: 1rem;
+  max-width: 30rem;
   padding: 2rem;
   position: fixed;
-  right: 0;
-  top: 0;
 }
 
-#inspector [role="img"] {
-  --size: 5rem;
-  align-self: start;
-  border-radius: var(--size);
-  border: 2px solid hsl(0, 0%, 80%);
-  display: grid;
-  font-size: 3rem;
+#inspector div [role="img"] {
+  font-size: 5rem;
   grid-row-start: 1;
   grid-row-end: span 3;
-  height: var(--size);
-  place-items: center;
-  width: var(--size);
+  text-align: center;
 }
 
-#inspector > * {
+#inspector div > * {
   margin: 0;
 }
 
-#inspector::after {
+#inspector div::after {
   --size: 48px;
   display: grid;
   content: "✕";
@@ -96,24 +88,43 @@ main h1 {
 /* Journal */
 
 #journal {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-}
-
-#journal summary {
+  background: white;
+  display: grid;
+  gap: 1rem;
   padding: 1rem;
 }
 
 #journal h2 {
-  display: inline-block;
   margin: 0;
 }
 
 #journal table {
-  bottom: 100%;
-  padding: 1rem;
-  position: absolute;
   width: 100%;
+}
+
+#journal th {
+  text-align: left;
+}
+
+#journal td, #journal th {
+  padding: 0.5rem;
+}
+
+#journal table tr {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 3rem repeat(2, 1fr);
+}
+
+#journal tbody tr:nth-child(odd) {
+  background: whitesmoke;
+}
+
+#journal td.image {
+  font-size: 2rem;
+}
+
+#journal td.name {
+  text-transform: capitalize;
 }
