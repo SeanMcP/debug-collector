@@ -1,6 +1,6 @@
 {
     "ant": {
-        "description": "Ants are small insects that live in large groups called a colony",
+        "description": "Ants are small insects that live in large groups called colonies",
         "fact": "Some ants are able to carry twenty times their own weight"
     },
     "bee": {
@@ -16,11 +16,11 @@
         "fact": "Silk-producing silkworms are actually caterpillars"
     },
     "cricket": {
-        "description": "Crickets are insects with flattened bodies, long antennae, and powerful back legs",
-        "fact": "Crickets are know for their distinctive \"chirping\" sound"
+        "description": "Crickets are insects with flat bodies, long antennae, and powerful back legs",
+        "fact": "Crickets are known for their distinctive \"chirping\" sound"
     },
     "ladybug": {
         "description": "Ladybugs are small round beetles with red shells and black spots",
-        "fact": "Lady bugs are also known as ladybirds or lady beetles"
+        "fact": "Ladybugs are also known as ladybirds or lady beetles"
     }
 }
